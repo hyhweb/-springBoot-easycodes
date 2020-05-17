@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.easycode.system.user.dao.TSysUserDao">
+
+    <resultMap type="com.springboot.easycode.system.user.entity.TSysUser" id="TSysUserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+               <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+               <result property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
+               <result property="salt" column="salt" jdbcType="VARCHAR"/>
+               <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+               <result property="phone" column="phone" jdbcType="VARCHAR"/>
+               <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+               <result property="qq" column="qq" jdbcType="VARCHAR"/>
+               <result property="wechat" column="wechat" jdbcType="VARCHAR"/>
+               <result property="email" column="email" jdbcType="VARCHAR"/>
+               <result property="status" column="status" jdbcType="BOOLEAN"/>
+               <result property="type" column="type" jdbcType="INTEGER"/>
+               <result property="userWxId" column="user_wx_id" jdbcType="INTEGER"/>
+               <result property="createrId" column="creater_id" jdbcType="INTEGER"/>
+               <result property="createrName" column="creater_name" jdbcType="VARCHAR"/>
+               <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+               <result property="updaterId" column="updater_id" jdbcType="INTEGER"/>
+               <result property="updaterName" column="updater_name" jdbcType="VARCHAR"/>
+               <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+           </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TSysUserMap">
+        select
+          user_id, user_name, user_pwd, salt, real_name, phone, mobile, qq, wechat, email, status, type, user_wx_id, creater_id, creater_name, create_time, updater_id, updater_name, update_time
+        from interview.t_sys_user
+        where user_id = #{userId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TSysUserMap">
+        select
+          user_id, user_name, user_pwd, salt, real_name, phone, mobile, qq, wechat, email, status, type, user_wx_id, creater_id, creater_name, create_time, updater_id, updater_name, update_time
+        from interview.t_sys_user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TSysUserMap">
+        select
+          user_id, user_name, user_pwd, salt, real_name, phone, mobile, qq, wechat, email, status, type, user_wx_id, creater_id, creater_name, create_time, updater_id, updater_name, update_time
+        from interview.t_sys_user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                and user_pwd = #{userPwd}
+            </if>
+            <if test="salt != null and salt != ''">
+                and salt = #{salt}
+            </if>
+            <if test="realName != null and realName != ''">
+                and real_name = #{realName}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="qq != null and qq != ''">
+                and qq = #{qq}
+            </if>
+            <if test="wechat != null and wechat != ''">
+                and wechat = #{wechat}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="userWxId != null">
+                and user_wx_id = #{userWxId}
+            </if>
+            <if test="createrId != null">
+                and creater_id = #{createrId}
+            </if>
+            <if test="createrName != null and createrName != ''">
+                and creater_name = #{createrName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updaterId != null">
+                and updater_id = #{updaterId}
+            </if>
+            <if test="updaterName != null and updaterName != ''">
+                and updater_name = #{updaterName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into interview.t_sys_user(user_name, user_pwd, salt, real_name, phone, mobile, qq, wechat, email, status, type, user_wx_id, creater_id, creater_name, create_time, updater_id, updater_name, update_time)
+        values (#{userName}, #{userPwd}, #{salt}, #{realName}, #{phone}, #{mobile}, #{qq}, #{wechat}, #{email}, #{status}, #{type}, #{userWxId}, #{createrId}, #{createrName}, #{createTime}, #{updaterId}, #{updaterName}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update interview.t_sys_user
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                user_pwd = #{userPwd},
+            </if>
+            <if test="salt != null and salt != ''">
+                salt = #{salt},
+            </if>
+            <if test="realName != null and realName != ''">
+                real_name = #{realName},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="qq != null and qq != ''">
+                qq = #{qq},
+            </if>
+            <if test="wechat != null and wechat != ''">
+                wechat = #{wechat},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="userWxId != null">
+                user_wx_id = #{userWxId},
+            </if>
+            <if test="createrId != null">
+                creater_id = #{createrId},
+            </if>
+            <if test="createrName != null and createrName != ''">
+                creater_name = #{createrName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updaterId != null">
+                updater_id = #{updaterId},
+            </if>
+            <if test="updaterName != null and updaterName != ''">
+                updater_name = #{updaterName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from interview.t_sys_user where user_id = #{userId}
+    </delete>
+
+</mapper>

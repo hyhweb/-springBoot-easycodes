@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.easycode.base.type.dao.TBasTypeDao">
+
+    <resultMap type="com.springboot.easycode.base.type.entity.TBasType" id="TBasTypeMap">
+        <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+               <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
+               <result property="typeCode" column="type_code" jdbcType="VARCHAR"/>
+               <result property="createrId" column="creater_id" jdbcType="INTEGER"/>
+               <result property="createrName" column="creater_name" jdbcType="VARCHAR"/>
+               <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+               <result property="updaterId" column="updater_id" jdbcType="INTEGER"/>
+               <result property="updaterName" column="updater_name" jdbcType="VARCHAR"/>
+               <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+           </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TBasTypeMap">
+        select
+          type_id, type_name, type_code, creater_id, creater_name, create_time, updater_id, updater_name, update_time
+        from interview.t_bas_type
+        where type_id = #{typeId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TBasTypeMap">
+        select
+          type_id, type_name, type_code, creater_id, creater_name, create_time, updater_id, updater_name, update_time
+        from interview.t_bas_type
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TBasTypeMap">
+        select
+          type_id, type_name, type_code, creater_id, creater_name, create_time, updater_id, updater_name, update_time
+        from interview.t_bas_type
+        <where>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and type_name = #{typeName}
+            </if>
+            <if test="typeCode != null and typeCode != ''">
+                and type_code = #{typeCode}
+            </if>
+            <if test="createrId != null">
+                and creater_id = #{createrId}
+            </if>
+            <if test="createrName != null and createrName != ''">
+                and creater_name = #{createrName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updaterId != null">
+                and updater_id = #{updaterId}
+            </if>
+            <if test="updaterName != null and updaterName != ''">
+                and updater_name = #{updaterName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="typeId" useGeneratedKeys="true">
+        insert into interview.t_bas_type(type_name, type_code, creater_id, creater_name, create_time, updater_id, updater_name, update_time)
+        values (#{typeName}, #{typeCode}, #{createrId}, #{createrName}, #{createTime}, #{updaterId}, #{updaterName}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update interview.t_bas_type
+        <set>
+            <if test="typeName != null and typeName != ''">
+                type_name = #{typeName},
+            </if>
+            <if test="typeCode != null and typeCode != ''">
+                type_code = #{typeCode},
+            </if>
+            <if test="createrId != null">
+                creater_id = #{createrId},
+            </if>
+            <if test="createrName != null and createrName != ''">
+                creater_name = #{createrName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updaterId != null">
+                updater_id = #{updaterId},
+            </if>
+            <if test="updaterName != null and updaterName != ''">
+                updater_name = #{updaterName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where type_id = #{typeId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from interview.t_bas_type where type_id = #{typeId}
+    </delete>
+
+</mapper>
